@@ -8,5 +8,12 @@ for i in range(len(data)):
     a = line[0]  
     b = line[1]  
 ```
-  
+
+### 写入：
+```
+f = open('a.txt','w')
+f.write('...' + '\n')
+f.clode()
+
+```
   
