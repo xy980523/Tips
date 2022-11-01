@@ -39,3 +39,10 @@ for i in range(5):
     csv_writer.writerow(['a','b','c','d'])
 f.close()
 ```
+# checkpoint
+
+### 读取
+ckpt = torch.load('ResNet_pt/resnet18-5c106cde.pth')
+model.load_state_dict(ckpt,strict=False)
+或者
+model.load_state_dict({k.replace('module.',''):v for k,v in ckpt.items()})
