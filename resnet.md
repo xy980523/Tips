@@ -1,4 +1,4 @@
-'''
+```
 def forward(self,x):
   x = self.conv1(x)
   x = self.bn1(x)
@@ -14,4 +14,4 @@ def forward(self,x):
   x = torch.flatten(x, 1)
   x = self.fc(x)
   return x
-'''
+```
