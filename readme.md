@@ -54,3 +54,18 @@ model.load_state_dict({k.replace('module.',''):v for k,v in ckpt.items()})
 model.load_state_dict({k.replace('model.',''):v for k,v in ckpt.items()})
 
 ```
+
+# 字典
+
+### 新建字典
+
+```
+srs = {}
+files = glob.glob('*.wav')
+for file in files:
+    wav, sr = torchaudio.load(file)
+    if sr in srs:
+        srs[sr] +=1
+    else:
+        srs[sr] = 1
+```
