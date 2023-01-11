@@ -69,3 +69,30 @@ for file in files:
     else:
         srs[sr] = 1
 ```
+
+# 训练时冻结参数
+```
+for name, param in model.named_parameters():
+    if "fc1" in name:
+        param.requires_grad = False
+optimizer = optim.SGD(filter(lambda p : p.requires_grad, model.parameters()),lr=5e-4)
+```
+
+# Seed
+```
+def seed_everything(seed):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benckmark = False
+
+seed_everything(123)
+```
+model build的过程都与torch有关
+固定seed的这个操作最好在所有函数执行之前就先执行了（也就是让 seed_everything(seed）这个函数在程序的最开始执行
+如果我们想要每次'默认的都相同'，那就执行两次 seed_everything(seed) 这个函数吧, 设置两个seed。第一次执行，在程序的开头，把所有的torch的seed相关的都固定住，第二次在build model 等之后再执行一次
+
