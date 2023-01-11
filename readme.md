@@ -78,6 +78,21 @@ for name, param in model.named_parameters():
 optimizer = optim.SGD(filter(lambda p : p.requires_grad, model.parameters()),lr=5e-4)
 ```
 
+# 对bias和layernorm.weight不使用weight_dacay
+```
+no_decay = ["bias","LayerNorm.weight"]
+optimizer_group_parameters = [
+    {"params":[p for n, p in model.name_parameters() if not any(nd in n for nd in no_dacay)],
+     "weight_decay": training_args.weight_decay,
+    },
+    {"params":[p for n, p in model.name_parameters() if any(nd in n for nd in no_dacay)],
+     "weight_decay": 0.0,},
+    ]
+optimizer = AdamW(optimizer_grouped_parameters, lr = training_args.learning_rate)
+```
+
+
+
 # Seed
 ```
 def seed_everything(seed):
