@@ -93,6 +93,8 @@ def seed_everything(seed):
 seed_everything(123)
 ```
 model build的过程都与torch有关
+
 固定seed的这个操作最好在所有函数执行之前就先执行了（也就是让 seed_everything(seed）这个函数在程序的最开始执行
+
 如果我们想要每次'默认的都相同'，那就执行两次 seed_everything(seed) 这个函数吧, 设置两个seed。第一次执行，在程序的开头，把所有的torch的seed相关的都固定住，第二次在build model 等之后再执行一次
 
