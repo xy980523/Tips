@@ -13,7 +13,7 @@ for i in range(len(data)):
 ```
 f = open('a.txt','w')
 f.write('...' + '\n')
-f.clode()
+f.close()
 
 ```
   
@@ -44,7 +44,13 @@ f.close()
 ### 读取
 ```
 ckpt = torch.load('ResNet_pt/resnet18-5c106cde.pth')
+如果是读取用pytorch或者pytorch_lightning训练得到的模型：
+ckpt = torch.load('ResNet_pt/resnet18-5c106cde.pth')['state_dict']
+
+然后
 model.load_state_dict(ckpt,strict=False)
 或者
 model.load_state_dict({k.replace('module.',''):v for k,v in ckpt.items()})
+model.load_state_dict({k.replace('model.',''):v for k,v in ckpt.items()})
+
 ```
